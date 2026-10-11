@@ -273,6 +273,10 @@ body.dark .sync-badge { color: #fde68a; background: #422006; }
 .ctrl-back { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
 
 /* ===================== MODALES ===================== */
+/* El atributo hidden siempre debe ganar, incluso sobre .modal { display: grid }.
+   Sin esta regla los diálogos nunca se ocultan y sus botones "no hacen nada". */
+[hidden] { display: none !important; }
+
 .modal {
   position: fixed; inset: 0;
   background: rgba(8, 10, 14, .55);
