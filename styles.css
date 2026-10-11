@@ -11,10 +11,11 @@
   --border: #e2e6ec;
   --shadow: 0 1px 2px rgba(16, 24, 40, .06), 0 8px 24px rgba(16, 24, 40, .06);
 
-  --p: #2563eb;        /* Punto  */
-  --b: #dc2626;        /* Banca  */
-  --a: #16a34a;        /* Ancar  */
-  --accent: #4f46e5;
+  --p: #bd6b64;        /* Punto (rojo suavizado)  */
+  --b: #6a84a6;        /* Banca (azul suavizado)  */
+  --a: #67916f;        /* Ancar (verde suavizado) */
+  --accent: #7c7fa3;
+  --danger: #b5655e;   /* Alertas y botón de peligro (independiente de P/B/A) */
 
   --cell: #ffffff;
   --cell-border: #e2e6ec;
@@ -34,10 +35,11 @@ body.dark {
   --border: #262c38;
   --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 30px rgba(0, 0, 0, .35);
 
-  --p: #3b82f6;
-  --b: #ef4444;
-  --a: #22c55e;
-  --accent: #818cf8;
+  --p: #bd6b64;
+  --b: #6a84a6;
+  --a: #67916f;
+  --accent: #a2a5d4;
+  --danger: #b5655e;
 
   --cell: #1b2029;
   --cell-border: #2a3140;
@@ -237,7 +239,7 @@ body.dark .sync-badge { color: #fde68a; background: #422006; }
 .btn-primary { background: var(--accent); color: #fff; }
 .btn-primary:hover { filter: brightness(1.06); }
 .btn-ghost { background: var(--surface-2); border-color: var(--border); color: var(--text); }
-.btn-danger { background: var(--b); color: #fff; }
+.btn-danger { background: var(--danger); color: #fff; }
 #btnNew { grid-column: 1 / -1; }
 
 /* ===================== CONTROLES (footer) ===================== */
@@ -431,7 +433,7 @@ body.dark .sync-badge { color: #fde68a; background: #422006; }
   color: var(--text);
 }
 .field input:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: transparent; }
-.form-msg { font-size: .8rem; color: var(--b); margin: 0; min-height: 1em; }
+.form-msg { font-size: .8rem; color: var(--danger); margin: 0; min-height: 1em; }
 
 /* KPIs */
 .kpis {
