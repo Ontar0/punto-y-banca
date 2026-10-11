@@ -12,7 +12,7 @@
   --shadow: 0 1px 2px rgba(16, 24, 40, .06), 0 8px 24px rgba(16, 24, 40, .06);
 
   --p: #bd6b64;        /* Punto (rojo suavizado)  */
-  --b: #17181a;        /* Banca (negro)           */
+  --b: #6a84a6;        /* Banca (azul suavizado)  */
   --a: #67916f;        /* Ancar (verde suavizado) */
   --accent: #7c7fa3;
   --danger: #b5655e;   /* Alertas y botón de peligro (independiente de P/B/A) */
@@ -36,7 +36,7 @@ body.dark {
   --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 30px rgba(0, 0, 0, .35);
 
   --p: #bd6b64;
-  --b: #727a86;
+  --b: #6a84a6;
   --a: #67916f;
   --accent: #a2a5d4;
   --danger: #b5655e;
