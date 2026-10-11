@@ -1,5 +1,5 @@
 /* =============================================================
-   Punto y Banca 2.0 — Configuración
+   Punto y Banca — Configuración
    -------------------------------------------------------------
    Completá estos dos valores con los de TU proyecto de Supabase.
    Los encontrás en:  Supabase → Project Settings → API

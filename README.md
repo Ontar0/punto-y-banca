@@ -1,4 +1,4 @@
-# Punto y Banca 2.0 🎴
+# Punto y Banca 🎴
 
 Marcador web para un sabot de **Punto y Banca (Baccarat)**, con archivado de tableros en la nube
 y un panel de estadísticas para el administrador.
@@ -88,7 +88,7 @@ window.PYB_CONFIG = {
 cd punto-y-banca
 git init
 git add .
-git commit -m "Punto y Banca 2.0"
+git commit -m "Punto y Banca"
 git branch -M main
 git remote add origin https://github.com/TU-USUARIO/punto-y-banca.git
 git push -u origin main

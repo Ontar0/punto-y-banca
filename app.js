@@ -1,5 +1,5 @@
 /* =============================================================
-   Punto y Banca 2.0 — Lógica del jugador
+   Punto y Banca — Lógica del jugador
    ============================================================= */
 (function () {
   "use strict";

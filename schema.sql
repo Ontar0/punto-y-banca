@@ -1,5 +1,5 @@
 -- =============================================================
---  Punto y Banca 2.0 — Esquema para Supabase (versión robusta)
+--  Punto y Banca — Esquema para Supabase
 --  Copiá TODO este archivo en: SQL Editor → New query → Run
 --  Al final, el Results debe mostrar:  rows | true
 -- =============================================================

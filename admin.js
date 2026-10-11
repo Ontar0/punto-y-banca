@@ -1,5 +1,5 @@
 /* =============================================================
-   Punto y Banca 2.0 — Panel de estadísticas (admin)
+   Punto y Banca — Panel de estadísticas (admin)
    ============================================================= */
 (function () {
   "use strict";

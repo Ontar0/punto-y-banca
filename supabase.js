@@ -1,5 +1,5 @@
 /* =============================================================
-   Punto y Banca 2.0 — Cliente mínimo de Supabase (REST, sin librerías)
+   Punto y Banca — Cliente mínimo de Supabase (REST, sin librerías)
    -------------------------------------------------------------
    Usa fetch directo contra la API REST (PostgREST) y Auth.
    - Los jugadores (anon) solo pueden INSERTAR.
