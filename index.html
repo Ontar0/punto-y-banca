@@ -23,7 +23,6 @@
       <div class="topbar-actions">
         <span class="sync-badge" id="syncBadge" hidden></span>
         <button id="btnTheme" class="icon-btn" type="button" title="Cambiar tema" aria-label="Cambiar tema">🌙</button>
-        <button id="btnQR" class="icon-btn icon-btn-accent" type="button" title="Compartir por QR" aria-label="Mostrar código QR">QR</button>
       </div>
     </header>
 
@@ -82,19 +81,6 @@
     </div>
   </div>
 
-  <!-- ===================== QR ===================== -->
-  <div class="modal" id="qrModal" hidden>
-    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="qrTitle">
-      <p class="modal-title" id="qrTitle">Compartir con jugadores</p>
-      <div class="qr-box" id="qrBox"></div>
-      <p class="qr-url" id="qrUrl"></p>
-      <div class="modal-actions">
-        <button class="btn btn-ghost" id="btnCopyUrl" type="button">Copiar enlace</button>
-        <button class="btn btn-primary" data-close type="button">Listo</button>
-      </div>
-    </div>
-  </div>
-
   <!-- ===================== INFO (reglas / ayuda) ===================== -->
   <div class="modal" id="infoModal" hidden>
     <div class="modal-card info-card" role="dialog" aria-modal="true" aria-labelledby="infoTitle">
@@ -122,7 +108,6 @@
 
   <script src="config.js"></script>
   <script src="supabase.js"></script>
-  <script src="qrcode.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

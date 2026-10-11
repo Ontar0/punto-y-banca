@@ -4,8 +4,8 @@
    Completá estos dos valores con los de TU proyecto de Supabase.
    Los encontrás en:  Supabase → Project Settings → API
 
-   Mientras estén vacíos, la app funciona igual (tablero, stats
-   locales, QR) pero NO archiva tableros en la nube.
+   Mientras estén vacíos, la app funciona igual (tablero y stats
+   locales) pero NO archiva tableros en la nube.
    ============================================================= */
 window.PYB_CONFIG = {
   // Ejemplo: "https://abcdefghijklmnop.supabase.co"

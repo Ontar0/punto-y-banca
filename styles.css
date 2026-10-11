@@ -339,19 +339,6 @@ body.dark .sync-badge { color: #fde68a; background: #422006; }
 .keypad-grid button:active { transform: scale(.94); }
 .keypad-grid button.zero { grid-column: span 3; }
 
-/* ===================== QR ===================== */
-.qr-box {
-  display: grid; place-items: center;
-  background: #fff; border-radius: 14px;
-  padding: 12px; margin: 0 auto 10px;
-  width: max-content; max-width: 100%;
-}
-.qr-box img, .qr-box canvas, .qr-box svg { display: block; max-width: 100%; height: auto; }
-.qr-url {
-  font-size: .72rem; color: var(--muted);
-  text-align: center; word-break: break-all; margin: 0;
-}
-
 /* ===================== TOAST ===================== */
 .toast {
   position: fixed;
