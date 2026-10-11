@@ -9,10 +9,10 @@
    ============================================================= */
 window.PYB_CONFIG = {
   // Ejemplo: "https://abcdefghijklmnop.supabase.co"
-  SUPABASE_URL: "",
+  SUPABASE_URL: "https://xqqllxfdoyemkobdhwxq.supabase.co",
 
   // Clave "anon public". Es pública: puede estar en el frontend.
-  SUPABASE_ANON_KEY: "",
+  SUPABASE_ANON_KEY: "sb_publishable_7A5zTpru6bl6aHXJ1kHPUA__O3efYVT",
 
   // Nombre de la tabla donde se archivan los tableros.
   TABLE: "boards"
