@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0f1115" />
+  <title>Punto y Banca · Estadísticas</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="admin">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <h1>Estadísticas · Punto y Banca</h1>
+      </div>
+      <div class="topbar-actions">
+        <button id="btnReload" class="icon-btn" type="button" title="Recargar datos" hidden>↻</button>
+        <button id="btnExport" class="icon-btn" type="button" title="Exportar CSV" hidden>CSV</button>
+        <button id="btnLogout" class="icon-btn" type="button" title="Cerrar sesión" hidden>Salir</button>
+      </div>
+    </header>
+
+    <!-- LOGIN -->
+    <section class="card" id="loginView">
+      <h2 class="card-title">Acceso administrador</h2>
+      <p class="card-sub" id="loginSub">Ingresá con tu cuenta de Supabase para ver las estadísticas.</p>
+      <form id="loginForm" class="form">
+        <label class="field">
+          <span>Email</span>
+          <input type="email" id="email" autocomplete="username" required />
+        </label>
+        <label class="field">
+          <span>Contraseña</span>
+          <input type="password" id="password" autocomplete="current-password" required />
+        </label>
+        <button type="submit" class="btn btn-primary" id="loginBtn">Ingresar</button>
+        <p class="form-msg" id="loginMsg" role="alert"></p>
+      </form>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section id="dashView" hidden>
+      <div class="kpis" id="kpis"></div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h2 class="card-title">Por dispositivo</h2>
+          <div class="table-scroll">
+            <table class="data-table" id="deviceTable"></table>
+          </div>
+        </div>
+        <div class="card">
+          <h2 class="card-title">Evolución por día</h2>
+          <div class="bars" id="dayBars"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">Tableros recientes</h2>
+        <div class="table-scroll">
+          <table class="data-table" id="boardsTable"></table>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="config.js"></script>
+  <script src="supabase.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

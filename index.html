@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0f1115" />
+  <meta name="description" content="Marcador para un sabot de Punto y Banca." />
+  <title>Punto y Banca · Marcador</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <h1>Punto y Banca</h1>
+      </div>
+      <div class="topbar-actions">
+        <span class="sync-badge" id="syncBadge" hidden></span>
+        <button id="btnTheme" class="icon-btn" type="button" title="Cambiar tema" aria-label="Cambiar tema">🌙</button>
+        <button id="btnQR" class="icon-btn icon-btn-accent" type="button" title="Compartir por QR" aria-label="Mostrar código QR">QR</button>
+      </div>
+    </header>
+
+    <main class="board-wrap">
+      <div class="board" id="board" role="grid" aria-label="Tablero de pases"></div>
+    </main>
+
+    <aside class="panel">
+      <div class="counters">
+        <div class="counter">
+          <span class="counter-label">Pases</span>
+          <span class="counter-value" id="cPases">0</span>
+        </div>
+        <div class="counter counter-p">
+          <span class="counter-label">Punto</span>
+          <span class="counter-value" id="cPunto">0</span>
+        </div>
+        <div class="counter counter-b">
+          <span class="counter-label">Banca</span>
+          <span class="counter-value" id="cBanca">0</span>
+        </div>
+        <div class="counter counter-a">
+          <span class="counter-label">Ancar</span>
+          <span class="counter-value" id="cAncar">0</span>
+        </div>
+      </div>
+
+      <div class="mini-stats" id="miniStats"></div>
+
+      <div class="panel-actions">
+        <button class="btn btn-primary" id="btnNew" type="button">Nuevo tablero</button>
+        <button class="btn btn-ghost" id="btnReset" type="button">Reset</button>
+        <button class="btn btn-ghost" id="btnRules" type="button">Reglas</button>
+        <button class="btn btn-ghost" id="btnHelp" type="button">Ayuda</button>
+      </div>
+    </aside>
+
+    <footer class="controls" role="group" aria-label="Registrar resultado del pase">
+      <button class="ctrl ctrl-p" id="btnP" type="button" aria-label="Gana Punto"><span>P</span></button>
+      <button class="ctrl ctrl-b" id="btnB" type="button" aria-label="Gana Banca"><span>B</span></button>
+      <button class="ctrl ctrl-a" id="btnA" type="button" aria-label="Ancar (empate)"><span>A</span></button>
+      <button class="ctrl ctrl-back" id="btnBack" type="button" aria-label="Retroceder un pase"><span>↶</span></button>
+    </footer>
+  </div>
+
+  <!-- ===================== TECLADO NUMÉRICO ===================== -->
+  <div class="modal" id="keypadModal" hidden>
+    <div class="modal-card keypad-card" role="dialog" aria-modal="true" aria-labelledby="keypadTitle">
+      <p class="modal-title" id="keypadTitle">Puntaje</p>
+      <div class="keypad-display" id="keypadValue">—</div>
+      <div class="keypad-grid" id="keypadGrid"></div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="keypadClear" type="button">Borrar</button>
+        <button class="btn btn-primary" id="keypadOk" type="button">Listo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== QR ===================== -->
+  <div class="modal" id="qrModal" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="qrTitle">
+      <p class="modal-title" id="qrTitle">Compartir con jugadores</p>
+      <div class="qr-box" id="qrBox"></div>
+      <p class="qr-url" id="qrUrl"></p>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="btnCopyUrl" type="button">Copiar enlace</button>
+        <button class="btn btn-primary" data-close type="button">Listo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== INFO (reglas / ayuda) ===================== -->
+  <div class="modal" id="infoModal" hidden>
+    <div class="modal-card info-card" role="dialog" aria-modal="true" aria-labelledby="infoTitle">
+      <p class="modal-title" id="infoTitle"></p>
+      <div class="info-body" id="infoBody"></div>
+      <div class="modal-actions">
+        <button class="btn btn-primary" data-close type="button">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== CONFIRMACIÓN ===================== -->
+  <div class="modal" id="confirmModal" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+      <p class="modal-title" id="confirmTitle">¿Seguro?</p>
+      <p class="info-body" id="confirmBody"></p>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="confirmNo" type="button">Cancelar</button>
+        <button class="btn btn-danger" id="confirmYes" type="button">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="config.js"></script>
+  <script src="supabase.js"></script>
+  <script src="qrcode.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
