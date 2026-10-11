@@ -17,7 +17,6 @@ Se publica tal cual en **GitHub Pages**.
 - **“Nuevo tablero”** archiva el tablero anterior en **Supabase** y empieza uno nuevo.
 - **Resiliente a cortes:** si no hay conexión, el envío se encola y se reintenta al reconectar.
 - **ID de dispositivo** (UUID) para agrupar los tableros por jugador.
-- **QR imprimible** del enlace, para que los jugadores entren escaneando (botón “Imprimir QR”).
 - **Panel admin** con login: KPIs, ranking por dispositivo, evolución por día y export a CSV.
 - Modo **claro/oscuro**, diseño responsive y accesibilidad (`prefers-reduced-motion`, `aria-*`).
 
@@ -34,7 +33,6 @@ punto-y-banca/
 ├── admin.js        → login + estadísticas
 ├── config.js       → config de Supabase (¡lo tenés que completar!)
 ├── supabase.js     → cliente REST mínimo (fetch, sin librerías)
-├── qrcode.min.js   → generador de QR (local, offline)
 ├── schema.sql      → tabla + políticas para pegar en Supabase
 └── README.md
 ```
@@ -101,7 +99,7 @@ Branch: `main` / root → Save**.
 
 Quedará online en `https://TU-USUARIO.github.io/punto-y-banca/`.
 
-- El **link del jugador** es la raíz (`…/punto-y-banca/`) → usá **“Imprimir QR”** en la app para generar el cartel con el código.
+- El **link del jugador** es la raíz (`…/punto-y-banca/`) → compartilo con los jugadores.
 - El **panel admin** es `…/punto-y-banca/admin.html` → guardalo solo para vos.
 
 ---
@@ -110,7 +108,7 @@ Quedará online en `https://TU-USUARIO.github.io/punto-y-banca/`.
 
 | Quién | Puede | Cómo |
 |---|---|---|
-| **Jugadores** (por QR) | **Escribir** tableros | Sin clave (rol anónimo) |
+| **Jugadores** (por link) | **Escribir** tableros | Sin clave (rol anónimo) |
 | **Vos (admin)** | **Leer** todos los datos | Login con tu email/contraseña |
 
 Las reglas (en `schema.sql`) garantizan que los jugadores **no puedan leer** nada:

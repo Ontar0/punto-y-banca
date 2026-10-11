@@ -431,26 +431,6 @@
     applyTheme(dark ? "dark" : "light");
   }
 
-  /* ---------- QR (imprimible) ---------- */
-  function playerUrl() {
-    return location.origin + location.pathname;
-  }
-  function showQR() {
-    const url = playerUrl();
-    const box = $("#qrBox");
-    box.innerHTML = "";
-    if (window.qrcode) {
-      const qr = qrcode(0, "M");
-      qr.addData(url);
-      qr.make();
-      box.innerHTML = qr.createSvgTag({ cellSize: 5, margin: 2, scalable: true });
-    } else {
-      box.textContent = url;
-    }
-    $("#qrUrl").textContent = url;
-    openModal("#qrModal");
-  }
-
   /* ---------- Reglas y ayuda ---------- */
   const RULES_TEXT =
     "TABLA DEL PUNTO\n" +
@@ -474,8 +454,7 @@
     "• Tocá un casillero marcado para anotar el puntaje con el teclado numérico.\n" +
     "• ↶ (o la tecla Retroceso) retrocede un pase.\n" +
     "• “Nuevo tablero” archiva el actual en la nube y empieza uno nuevo.\n" +
-    "• “Reset” borra el actual SIN guardarlo.\n" +
-    "• “Imprimir QR” genera el código del enlace para que los jugadores entren.\n\n" +
+    "• “Reset” borra el actual SIN guardarlo.\n\n" +
     "Los tableros se guardan automáticamente: si no hay conexión, se reintenta el envío al reconectar.";
 
   function showInfo(title, text) {
@@ -509,8 +488,6 @@
     $("#btnRules").addEventListener("click", () => showInfo("Reglas de naipes", RULES_TEXT));
     $("#btnHelp").addEventListener("click", () => showInfo("Ayuda", HELP_TEXT));
     $("#btnTheme").addEventListener("click", toggleTheme);
-    $("#btnQR").addEventListener("click", showQR);
-    $("#btnPrint").addEventListener("click", () => window.print());
 
     $("#keypadOk").addEventListener("click", keypadOk);
     $("#keypadClear").addEventListener("click", keypadClear);
@@ -554,9 +531,9 @@
         return;
       }
       if (e.target && /^(INPUT|TEXTAREA)$/.test(e.target.tagName)) return;
-      const anyModalOpen = ["#infoModal", "#qrModal", "#confirmModal"].some((s) => !$(s).hidden);
+      const anyModalOpen = ["#infoModal", "#confirmModal"].some((s) => !$(s).hidden);
       if (anyModalOpen) {
-        if (e.key === "Escape") ["#infoModal", "#qrModal"].forEach((s) => closeModal(s));
+        if (e.key === "Escape") ["#infoModal"].forEach((s) => closeModal(s));
         return;
       }
       const k = e.key.toLowerCase();

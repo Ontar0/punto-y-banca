@@ -57,7 +57,6 @@
         <button class="btn btn-ghost" id="btnReset" type="button">Reset</button>
         <button class="btn btn-ghost" id="btnRules" type="button">Reglas</button>
         <button class="btn btn-ghost" id="btnHelp" type="button">Ayuda</button>
-        <button class="btn btn-ghost" id="btnQR" type="button">Imprimir QR</button>
       </div>
     </aside>
 
@@ -78,20 +77,6 @@
       <div class="modal-actions">
         <button class="btn btn-ghost" id="keypadClear" type="button">Borrar</button>
         <button class="btn btn-primary" id="keypadOk" type="button">Listo</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===================== QR (imprimible) ===================== -->
-  <div class="modal" id="qrModal" hidden>
-    <div class="modal-card qr-card" role="dialog" aria-modal="true" aria-labelledby="qrTitle">
-      <p class="modal-title qr-title" id="qrTitle">Punto y Banca</p>
-      <p class="qr-hint">Escaneá con la cámara para abrir el marcador</p>
-      <div class="qr-box" id="qrBox"></div>
-      <p class="qr-url" id="qrUrl"></p>
-      <div class="modal-actions">
-        <button class="btn btn-ghost" data-close type="button">Cerrar</button>
-        <button class="btn btn-primary" id="btnPrint" type="button">Imprimir</button>
       </div>
     </div>
   </div>
@@ -123,7 +108,6 @@
 
   <script src="config.js"></script>
   <script src="supabase.js"></script>
-  <script src="qrcode.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
