@@ -339,6 +339,42 @@ body.dark .sync-badge { color: #fde68a; background: #422006; }
 .keypad-grid button:active { transform: scale(.94); }
 .keypad-grid button.zero { grid-column: span 3; }
 
+/* ===================== QR (imprimible) ===================== */
+.qr-card { max-width: 420px; text-align: center; }
+.qr-title { font-size: 1.5rem; letter-spacing: .3px; margin-bottom: 4px; }
+.qr-hint { font-size: .82rem; color: var(--muted); margin: 0 0 14px; }
+.qr-box {
+  display: grid; place-items: center;
+  background: #fff; border-radius: 14px;
+  border: 1px solid var(--border);
+  padding: 16px; margin: 0 auto 12px;
+  width: max-content; max-width: 100%;
+}
+.qr-box img, .qr-box canvas, .qr-box svg { display: block; max-width: 100%; height: auto; }
+.qr-url {
+  font-size: .78rem; color: var(--text);
+  text-align: center; word-break: break-all; margin: 0;
+  font-weight: 600;
+}
+
+/* Al imprimir: solo el cartel del QR, en blanco y bien grande */
+@media print {
+  @page { margin: 18mm; }
+  html, body { background: #fff !important; }
+  body > * { display: none !important; }
+  #qrModal { display: block !important; position: static; inset: auto; background: none; backdrop-filter: none; padding: 0; animation: none; }
+  #qrModal .qr-card {
+    max-width: none; width: auto; border: none; box-shadow: none;
+    padding: 0; animation: none; text-align: center;
+  }
+  #qrModal .qr-title { font-size: 30pt; color: #000; }
+  #qrModal .qr-hint { font-size: 13pt; color: #333; margin-bottom: 10mm; }
+  #qrModal .qr-box { border: none; padding: 0; margin: 0 auto 8mm; }
+  #qrModal .qr-box svg { width: 90mm !important; height: 90mm !important; }
+  #qrModal .qr-url { font-size: 12pt; color: #000; margin-bottom: 6mm; }
+  #qrModal .modal-actions { display: none !important; }
+}
+
 /* ===================== TOAST ===================== */
 .toast {
   position: fixed;
