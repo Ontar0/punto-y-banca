@@ -255,7 +255,15 @@
   /* ---------- Archivado / sincronización ---------- */
   function outboxGet() {
     try {
-      return JSON.parse(localStorage.getItem(KEY_OUTBOX)) || [];
+      const raw = JSON.parse(localStorage.getItem(KEY_OUTBOX)) || [];
+      return raw.map((item) => {
+        const nowIso = new Date().toISOString();
+        if (!item.updated_at) item.updated_at = item.created_at || nowIso;
+        if (typeof item.retry_count !== "number") item.retry_count = 0;
+        if (item.failed) delete item.failed;
+        if (item.last_error) delete item.last_error;
+        return item;
+      });
     } catch (e) {
       return [];
     }
@@ -266,15 +274,31 @@
   }
 
   function buildPayload() {
-    const c = counts();
+    const nowIso = new Date().toISOString();
+    const sequenceRaw = state.hands.map((h) => h.winner);
+    const sequence = sequenceRaw.filter((v) => v === "P" || v === "B" || v === "A");
+    let count_p = 0,
+      count_b = 0,
+      count_a = 0;
+    for (let i = 0; i < sequence.length; i++) {
+      const v = sequence[i];
+      if (v === "P") count_p++;
+      else if (v === "B") count_b++;
+      else if (v === "A") count_a++;
+    }
+    let passes = sequence.length;
+    if (passes < 0) passes = 0;
+    if (passes !== sequence.length) passes = sequence.length;
     return {
       device_id: getDeviceId(),
-      created_at: new Date().toISOString(),
-      passes: c.passes,
-      count_p: c.p,
-      count_b: c.b,
-      count_a: c.a,
-      sequence: state.hands.map((h) => h.winner)
+      created_at: nowIso,
+      updated_at: nowIso,
+      retry_count: 0,
+      passes: passes,
+      count_p: count_p,
+      count_b: count_b,
+      count_a: count_a,
+      sequence: sequence,
     };
   }
 
@@ -288,13 +312,50 @@
       updateSyncBadge();
       return;
     }
+    const nowIso = new Date().toISOString();
     const remaining = [];
-    for (const item of list) {
-      try {
-        await PYBAPI.insertBoard(item);
-      } catch (e) {
+    for (let i = 0; i < list.length; i++) {
+      const item = list[i];
+      if (item && item.failed) {
         remaining.push(item);
+        continue;
       }
+      let attempts = 0;
+      let lastErr = null;
+      while (attempts <= 5) {
+        try {
+          await PYBAPI.insertBoard(item);
+          lastErr = null;
+          break;
+        } catch (e) {
+          lastErr = e && e.message ? e.message : String(e);
+          attempts++;
+          if (attempts <= 5) {
+            const backoff = Math.min(1000 * Math.pow(2, attempts - 1), 10000);
+            await new Promise((r) => setTimeout(r, backoff));
+          }
+        }
+      }
+      if (lastErr === null) {
+        // éxito: no lo agregamos a remaining
+        continue;
+      }
+      if (item.retry_count >= 5) {
+        const failedItem = Object.assign({}, item, {
+          retry_count: item.retry_count + 1,
+          updated_at: nowIso,
+          failed: true,
+          last_error: lastErr,
+        });
+        remaining.push(failedItem);
+        continue;
+      }
+      const retryItem = Object.assign({}, item, {
+        retry_count: (item.retry_count || 0) + 1,
+        updated_at: nowIso,
+        last_error: lastErr,
+      });
+      remaining.push(retryItem);
     }
     outboxSet(remaining);
     if (!remaining.length) toast("Datos sincronizados con la nube.");
@@ -547,6 +608,10 @@
     });
 
     window.addEventListener("online", flushOutbox);
+    window.addEventListener("focus", flushOutbox);
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) flushOutbox();
+    });
   }
 
   /* ---------- Init ---------- */
