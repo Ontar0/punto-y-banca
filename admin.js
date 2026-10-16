@@ -95,6 +95,11 @@
   function shortId(id) {
     return id ? String(id).slice(0, 8) : "—";
   }
+  // El id visible va cortado; si lo está, el completo se expone también para
+  // lectores de pantalla (el atributo title no siempre se anuncia).
+  function truncated(id) {
+    return id && String(id).length > 8 ? `<span class="sr-only"> (${id})</span>` : "";
+  }
   function fmtDate(iso) {
     if (!iso) return "—";
     const d = new Date(iso);
@@ -162,11 +167,12 @@
     const list = Array.from(map.entries()).sort((x, y) => y[1].passes - x[1].passes);
 
     let html =
-      "<thead><tr><th>Dispositivo</th><th>Tableros</th><th>Pases</th><th>P%</th><th>B%</th><th>A%</th></tr></thead><tbody>";
+      '<caption class="sr-only">Tableros agrupados por dispositivo</caption>' +
+      '<thead><tr><th scope="col">Dispositivo</th><th scope="col">Tableros</th><th scope="col">Pases</th><th scope="col">P%</th><th scope="col">B%</th><th scope="col">A%</th></tr></thead><tbody>';
     if (!list.length) html += '<tr><td colspan="6" class="empty">Sin datos todavía.</td></tr>';
     for (const [id, g] of list) {
       html += `<tr>
-        <td class="mono" title="${id}">${shortId(id)}</td>
+        <td class="mono" title="${id}">${shortId(id)}${truncated(id)}</td>
         <td>${g.boards}</td>
         <td>${g.passes}</td>
         <td>${pct(g.p, g.passes)}%</td>
@@ -199,8 +205,8 @@
         const w = Math.max(4, Math.round((g.passes / max) * 100));
         return `<div class="bar-row">
           <span class="bar-day">${day.slice(5)}</span>
-          <span class="bar-track"><span class="bar-fill" style="width:${w}%"></span></span>
-          <span class="bar-val">${g.passes}</span>
+          <span class="bar-track" aria-hidden="true"><span class="bar-fill" style="width:${w}%"></span></span>
+          <span class="bar-val">${g.passes}<span class="sr-only"> pases</span></span>
         </div>`;
       })
       .join("");
@@ -209,14 +215,15 @@
   function renderBoardsTable(rows) {
     const list = rows.slice(0, 60);
     let html =
-      "<thead><tr><th>Fecha</th><th>Dispositivo</th><th>Pases</th><th>P</th><th>B</th><th>A</th><th>Racha</th></tr></thead><tbody>";
+      '<caption class="sr-only">Tableros recientes</caption>' +
+      '<thead><tr><th scope="col">Fecha</th><th scope="col">Dispositivo</th><th scope="col">Pases</th><th scope="col">P</th><th scope="col">B</th><th scope="col">A</th><th scope="col">Racha</th></tr></thead><tbody>';
     if (!list.length) html += '<tr><td colspan="7" class="empty">Sin datos todavía.</td></tr>';
     for (const r of list) {
       const st = streaks(Array.isArray(r.sequence) ? r.sequence : []);
       const racha = st.longest.side ? `${st.longest.side} ×${st.longest.len}` : "—";
       html += `<tr>
         <td>${fmtDate(r.created_at)}</td>
-        <td class="mono" title="${r.device_id}">${shortId(r.device_id)}</td>
+        <td class="mono" title="${r.device_id}">${shortId(r.device_id)}${truncated(r.device_id)}</td>
         <td>${r.passes || 0}</td>
         <td>${r.count_p || 0}</td>
         <td>${r.count_b || 0}</td>

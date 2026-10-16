@@ -102,7 +102,9 @@
     cell.className = "cell";
     cell.dataset.side = side;
     cell.dataset.n = String(n);
-    cell.setAttribute("role", "gridcell");
+    // Las celdas son <button> reales con aria-label propio: no se usan roles de
+    // grid (exigen role="row" y navegación con flechas; un grid mal formado es
+    // peor para los lectores de pantalla que un grupo de botones comunes).
     cell.setAttribute("aria-label", `Pase ${n} · ${side === "P" ? "Punto" : "Banca"}`);
     const score = document.createElement("span");
     score.className = "cell-score";
@@ -439,15 +441,26 @@
   }
 
   /* ---------- Modales ---------- */
+  // Foco de modales: al abrir, el foco pasa al diálogo (anuncia el título) y al
+  // cerrar vuelve al elemento que lo abrió, para no perderlo con el teclado.
+  const modalReturnFocus = new Map();
   function openModal(sel) {
     const m = $(sel);
-    if (m) m.hidden = false;
+    if (!m || !m.hidden) return;
+    modalReturnFocus.set(m, document.activeElement);
+    m.hidden = false;
     document.body.style.overflow = "hidden";
+    const dialog = m.querySelector('[role="dialog"]') || m;
+    if (dialog && typeof dialog.focus === "function") dialog.focus();
   }
   function closeModal(sel) {
     const m = $(sel);
     if (m) m.hidden = true;
     document.body.style.overflow = "";
+    if (!m) return;
+    const prev = modalReturnFocus.get(m);
+    modalReturnFocus.delete(m);
+    if (prev && document.contains(prev) && typeof prev.focus === "function") prev.focus();
   }
 
   let confirmResolve = null;
@@ -594,7 +607,12 @@
       if (e.target && /^(INPUT|TEXTAREA)$/.test(e.target.tagName)) return;
       const anyModalOpen = ["#infoModal", "#confirmModal"].some((s) => !$(s).hidden);
       if (anyModalOpen) {
-        if (e.key === "Escape") ["#infoModal"].forEach((s) => closeModal(s));
+        // Escape cierra el diálogo activo (el de confirmación cancela, igual
+        // que el botón "Cancelar"; era la única vía de salida por teclado).
+        if (e.key === "Escape") {
+          if (!$("#confirmModal").hidden) closeConfirm(false);
+          else closeModal("#infoModal");
+        }
         return;
       }
       const k = e.key.toLowerCase();

@@ -27,7 +27,7 @@
     </header>
 
     <main class="board-wrap">
-      <div class="board" id="board" role="grid" aria-label="Tablero de pases"></div>
+      <div class="board" id="board" role="group" aria-label="Tablero de pases"></div>
     </main>
 
     <aside class="panel">
@@ -70,7 +70,7 @@
 
   <!-- ===================== TECLADO NUMÉRICO ===================== -->
   <div class="modal" id="keypadModal" hidden>
-    <div class="modal-card keypad-card" role="dialog" aria-modal="true" aria-labelledby="keypadTitle">
+    <div class="modal-card keypad-card" role="dialog" aria-modal="true" aria-labelledby="keypadTitle" tabindex="-1">
       <p class="modal-title" id="keypadTitle">Puntaje</p>
       <div class="keypad-display" id="keypadValue">—</div>
       <div class="keypad-grid" id="keypadGrid"></div>
@@ -83,7 +83,7 @@
 
   <!-- ===================== INFO (reglas / ayuda) ===================== -->
   <div class="modal" id="infoModal" hidden>
-    <div class="modal-card info-card" role="dialog" aria-modal="true" aria-labelledby="infoTitle">
+    <div class="modal-card info-card" role="dialog" aria-modal="true" aria-labelledby="infoTitle" tabindex="-1">
       <p class="modal-title" id="infoTitle"></p>
       <div class="info-body" id="infoBody"></div>
       <div class="modal-actions">
@@ -94,7 +94,7 @@
 
   <!-- ===================== CONFIRMACIÓN ===================== -->
   <div class="modal" id="confirmModal" hidden>
-    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="confirmTitle" tabindex="-1">
       <p class="modal-title" id="confirmTitle">¿Seguro?</p>
       <p class="info-body" id="confirmBody"></p>
       <div class="modal-actions">
